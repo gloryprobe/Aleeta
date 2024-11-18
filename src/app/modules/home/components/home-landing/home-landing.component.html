@@ -1,0 +1,93 @@
+<div class="flex bg-[#121212] text-[#f2f2f2]">
+
+    <div class="w-80 bg-[#282828] h-screen text-[#ababab] flex flex-col items-start gap-8 p-4">
+        <h1 class="p-2 text-xl font-medium text-[#c4c4c4]">History</h1>
+        <ul class="flex flex-col gap-2">
+            <li *ngFor="let history of histories" class="hover:bg-[#3f3f3f] hover:rounded-md p-2 text-sm">{{history}}
+            </li>
+        </ul>
+    </div>
+
+    <div class="flex flex-col w-full">
+        <div class="h-[88vh] flex flex-col ">
+            <div class="flex justify-between p-4 h-[10%]">
+                <h1 class="text-lg font-medium aleeta">Aleeta</h1>
+                <div class="flex gap-4">
+                    <button (click)="getLogs()"
+                        class="bg-[#707070] text-[#121212] font-medium p-4 flex items-center justify-center rounded-lg gap-4">
+                        <mat-icon>save_alt</mat-icon>
+                        Download Logs</button>
+                    <div class="bg-[#707070] text-white rounded-full p-3 flex items-center justify-center">
+                        <mat-icon class="text-[#121212]">person</mat-icon>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full flex justify-center overflow-auto gap-6 h-[88%]">
+                <div class="w-1/2 flex flex-col gap-10" *ngIf="chat.length>0">
+                    <div *ngFor="let chatDetails of chat" class="flex flex-col border-red-500 gap-4">
+                        <div class=" flex justify-end gap-2">
+                            <!-- <div>
+                                <button *ngIf="!editEnabled"
+                                    class="bg-[#707070] text-white rounded-full p-1 flex items-center justify-center mt-1"
+                                    (click)="editQuestion()">
+                                    <mat-icon class="text-[#121212]">edit</mat-icon>
+                                </button>
+                            </div> -->
+                            <div *ngIf="chatDetails.question && !editEnabled"
+                                class="bg-[#282828] px-4 py-3 rounded-3xl flex justify-center items-center max-w-[75%]">
+                                <span> {{chatDetails.question}}</span>
+                            </div>
+                            <div *ngIf="editEnabled"
+                                class="bg-[#282828] px-6 py-3 rounded-3xl flex flex-col justify-center items-end max-w-[75%] gap-4">
+                                <textarea name="" id="" class="bg-[#282828] outline-none" cols="50" rows="2" style="resize:none"></textarea>
+                                <div class="flex items-center justify-center gap-4">
+                                    <button class="rounded-full bg-[#121212] px-4 py-2 text-white" (click)="disableEdit()">Cancel</button>
+                                    <button class="rounded-full bg-[#707070] px-4 py-2">Send</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-start gap-2">
+                            <div>
+                                <div class="bg-[#707070] text-white rounded-full flex items-center justify-center p-2">
+                                    <mat-icon class="text-[#121212]">person</mat-icon>
+                                </div>
+                            </div>
+                            <div *ngIf="chatDetails.answer" class="px-4 py-2">
+                                <span>{{chatDetails.answer}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-1/2 flex flex-col justify-center items-center gap-4" *ngIf="chat.length===0">
+                    <div class="text-center text-2xl font-bold">
+                        <div class="wrapper">
+                            <div class="typing-demo">
+                                Hello! How can I help you today ?</div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-3 justify-items-center gap-y-4 place-items-center">
+                        <div class="rounded-3xl  p-4 bg-[#282828] text-sm text-center w-10/12 h-full flex items-center"
+                            *ngFor="let question of questions">
+                            <p>{{question}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="h-[10vh] flex items-center justify-center 00">
+            <div class=" rounded-full  bg-[#3f3f3f] w-1/2 flex justify-between items-center p-2">
+                <input type="text" placeholder="Type your message here..."
+                    class=" outline-none h-1/2 w-full px-4 bg-[#3f3f3f]" [(ngModel)]="question" />
+                <div class="bg-[#f9f9f9] text-white rounded-full  flex items-center justify-center p-3">
+                    <button (click)="ask()">
+                        <mat-icon class="text-[#121212]">send</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
