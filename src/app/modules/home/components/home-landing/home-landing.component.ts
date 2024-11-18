@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/api/api.service';
 
 @Component({
@@ -8,6 +8,7 @@ import { ApiService } from 'src/app/api/api.service';
 })
 export class HomeLandingComponent implements OnInit {
   constructor(private apiService: ApiService) { }
+  @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
   question: string = '';
   answer: string = '';
   editEnabled: boolean = false;
@@ -42,39 +43,39 @@ export class HomeLandingComponent implements OnInit {
   data = 'Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor sit amet consectetur adipisicing elitLorem ipsum dolor sit amet consectetur adipisicing elitLorem ipsum dolor sit amet consectetur adipisicing elitLorem ipsum dolor sit amet consectetur adipisicing elitLorem ipsum dolor sit amet consectetur adipisicing elitLorem ipsum dolor sit amet consectetur adipisicing elitLorem ipsum dolor sit amet consectetur adipisicing elitLorem ipsum dolor sit amet consectetur adipisicing elitLorem ipsum dolor sit amet consectetur adipisicing elitLorem ipsum dolor sit amet consectetur adipisicing elit'
 
   chat: any[] = [
-    // {
-    //   id: '5635',
-    //   question: 'Are you sure you want to leave this room?',
-    //   answer: 'Leave this room'
-    // },
-    // {
-    //   id: '5636',
-    //   question: 'What are your thoughts on this topic?',
-    //   answer: 'This topic is interesting'
-    // },
-    // {
-    //   id: '5637',
-    //   question: this.data,
-    //   answer: this.data
-    // },
-    // {
-    //   id: '5638',
-    //   question: 'Thank you for your feedback!',
-    //   answer: 'Thank you'
-    // },
-    // {
-    //   id: '5639',
-    //   question: 'What do you think about the topic?',
-    //   answer: 'This topic is not interesting'
-    // },
-    // {
-    //   id: '5640',
-    //   question: 'Explanation of the Code ChangesLine Wrapping with span: Each line is wrapped in a span element with the class .line. This makes each line independently animatable.Delay for Sequential Typing: We apply an increasing delay (animation-delay) for each span. This makes each line start typing after the previous one has finished.Animation Timing: You can adjust the animation-delay or the duration in @keyframes typingg to change the speed and the delay between lines.This setup will create the effect of each line typing out one after another. Adjust the duration in the animation and animation-delay values as needed for smoother or faster effects',
-    //   answer: 'Yes'
-    // }
+    {
+      id: '5635',
+      question: 'Are you sure you want to leave this room?',
+      answer: 'Leave this room'
+    },
+    {
+      id: '5636',
+      question: 'What are your thoughts on this topic?',
+      answer: 'This topic is interesting'
+    },
+    {
+      id: '5637',
+      question: this.data,
+      answer: this.data
+    },
+    {
+      id: '5638',
+      question: 'Thank you for your feedback!',
+      answer: 'Thank you'
+    },
+    {
+      id: '5639',
+      question: 'What do you think about the topic?',
+      answer: 'This topic is not interesting'
+    },
+    {
+      id: '5640',
+      question: 'Explanation of the Code ChangesLine Wrapping with span: Each line is wrapped in a span element with the class .line. This makes each line independently animatable.Delay for Sequential Typing: We apply an increasing delay (animation-delay) for each span. This makes each line start typing after the previous one has finished.Animation Timing: You can adjust the animation-delay or the duration in @keyframes typingg to change the speed and the delay between lines.This setup will create the effect of each line typing out one after another. Adjust the duration in the animation and animation-delay values as needed for smoother or faster effects',
+      answer: 'Yes'
+    }
   ]
   ngOnInit(): void {
-
+    this.scrollToBottom()
   }
   ask() {
     console.log(this.question);
@@ -87,41 +88,57 @@ export class HomeLandingComponent implements OnInit {
     //     this.answer = res.response;
     //   }
     // })
-    this.chat.push({
-      id:'5345',
-      question: this.question,
-      answer: 'tsponsebrtbrt brtbbtsponseb rtbrtbrtbbtsponsebrt brtbrtbbt sponsebrtbrtbr tbbtsponsebrtbrtbrtbb',
-    })
-    this.question = ''
+    if (this.question !== '') {
+      this.chat.push({
+        id: '5345',
+        question: this.question,
+        answer: 'Explanation of the Code ChangesLine Wrapping with span: Each line is wrapped in a span element with the class .line. This makes each line independently animatable.Delay for Sequential Typing: We apply an increasing delay (animation-delay) for each span. This makes each line start typing after the previous one has finished.Animation Timing: You can adjust the animation-delay or the duration in @keyframes typingg to change the speed and the delay between lines.This setup will create the effect of each line typing out one after another. Adjust the duration in the animation and animation-delay values as needed for smoother or faster effects',
+      })
+      this.question = ''
+      this.scrollToBottom()
+    }
+    else {
+      return
+    }
   }
-  editQuestion(){
+  onEnterPress(e: KeyboardEvent) {
+    if (e.key === 'Enter') {
+      this.ask()
+    }
+  }
+  editQuestion() {
     this.editEnabled = true
   }
-  disableEdit(){
-    this.editEnabled =false
+  disableEdit() {
+    this.editEnabled = false
   }
-  getLogs(){
-    this.apiService.downloadCSV().subscribe((res)=>{
-      console.log(res);
-      const blob = new Blob([res], { type: 'text/csv'})
-      console.log(blob);
-      // const file = new File([blob], 'Aleeta')
+  getLogs() {
+    this.apiService.downloadCSV().subscribe((res) => {
+      const blob = new Blob([res], { type: 'text/csv' })
       this.dowloadFile(blob)
-      // window.open(window.URL.createObjectURL(file))
-
-
     })
   }
 
-  dowloadFile(blob: Blob){
+  dowloadFile(blob: Blob) {
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.style.display = 'none';
     a.href = url;
-    // the filename you want
     a.download = 'Aleeta_Logs.csv';
     document.body.appendChild(a);
     a.click();
     window.URL.revokeObjectURL(url);
+  }
+  scrollToBottom() {
+    const el: HTMLDivElement = this.scrollContainer.nativeElement;
+    setTimeout(() => {
+      el.scrollTo({
+        top: el.scrollHeight,
+        behavior: 'smooth',
+      });
+    });
+  }
+  ngAfterViewInit() {
+    this.scrollToBottom();
   }
 }
