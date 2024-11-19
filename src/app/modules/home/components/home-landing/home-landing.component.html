@@ -14,7 +14,7 @@
                 <h1 class="text-lg font-medium aleeta">Aleeta</h1>
                 <div class="flex gap-4">
                     <button (click)="getLogs()"
-                        class="bg-[#707070] text-[#121212] font-medium p-4 flex items-center justify-center rounded-lg gap-4">
+                        class="bg-[#707070] text-[#121212] font-medium p-2 flex items-center justify-center rounded-lg gap-4">
                         <mat-icon>save_alt</mat-icon>
                         Download Logs</button>
                     <div class="bg-[#707070] text-white rounded-full p-3 flex items-center justify-center">
@@ -34,7 +34,7 @@
                                 </button>
                             </div> -->
                             <div *ngIf="chatDetails.question && !editEnabled"
-                                class="bg-[#282828] px-4 py-3 rounded-3xl flex justify-center items-center max-w-[75%]">
+                                class="bg-[#282828] px-4 py-3 rounded-3xl flex justify-center items-center max-w-[75%] leading-7 text-base">
                                 <span> {{chatDetails.question}}</span>
                             </div>
                             <div *ngIf="editEnabled"
@@ -54,7 +54,7 @@
                                     <mat-icon class="text-[#121212]">person</mat-icon>
                                 </div>
                             </div>
-                            <div *ngIf="chatDetails.answer" class="px-4 py-2">
+                            <div *ngIf="chatDetails.answer" class="px-4 py-2 leading-7 text-base">
                                 <span>{{chatDetails.answer}}</span>
                             </div>
                         </div>
@@ -84,11 +84,10 @@
             <div class=" rounded-full  bg-[#3f3f3f] w-1/2 flex justify-between items-center p-2">
                 <input type="text" placeholder="Type your message here..." id="myInput" (keydown)="onEnterPress($event)"
                     class="outline-none h-1/2 w-full px-4 bg-[#3f3f3f]" [(ngModel)]="question" />
-                <div class="bg-[#f9f9f9] text-white rounded-full  flex items-center justify-center p-3">
-                    <button (click)="ask()">
-                        <mat-icon class="text-[#121212]">send</mat-icon>
-                    </button>
-                </div>
+                <button (click)="ask()" [disabled]="!question"
+                    class="bg-[#f9f9f9] text-white rounded-full  flex items-center justify-center p-3">
+                    <mat-icon class="text-[#121212]">send</mat-icon>
+                </button>
             </div>
         </div>
     </div>
