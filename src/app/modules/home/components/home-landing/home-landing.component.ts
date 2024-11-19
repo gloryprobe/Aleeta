@@ -106,11 +106,42 @@ export class HomeLandingComponent implements OnInit {
       this.ask()
     }
   }
-  editQuestion() {
+  res:any=[];
+  editQuestion(id: string) {
     this.editEnabled = true
+    this.chat = this.chat.map((item) => {
+        return {
+          ...item,
+          editMode : id === item.id  ? this.editEnabled : false
+        }
+    });
   }
-  disableEdit() {
+  disableEdit(id: string) {
     this.editEnabled = false
+    this.chat = this.chat.map((item) => {
+      return {
+        ...item,
+        editMode : id === item.id  ? this.editEnabled : false
+      }
+  });
+  }
+  editedQuestion(question: string,id: string){
+    console.log(question);
+    this.chat = this.chat.map((item)=>{
+      if (item.id === id) {
+        return {
+         ...item,
+          question: question,
+          editMode : false,
+        }
+      }
+      else {
+        return {
+          ...item,
+          editMode : false,
+        }
+      }
+    })
   }
   getLogs() {
     this.apiService.downloadCSV().subscribe((res) => {

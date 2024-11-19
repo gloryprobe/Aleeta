@@ -27,24 +27,24 @@
                     <div *ngFor="let chatDetails of chat" class="flex flex-col border-red-500 gap-4">
                         <div class=" flex justify-end gap-2">
                             <div>
-                                <button *ngIf="!editEnabled"
+                                <button *ngIf="!chatDetails.editMode"
                                     class="bg-[#707070] text-white rounded-full p-1 flex items-center justify-center mt-1"
-                                    (click)="editQuestion()">
+                                    (click)="editQuestion(chatDetails.id)">
                                     <mat-icon class="text-[#121212]">edit</mat-icon>
                                 </button>
                             </div>
-                            <div *ngIf="chatDetails.question && !editEnabled"
+                            <div *ngIf="chatDetails.question && !chatDetails.editMode"
                                 class="bg-[#282828] px-4 py-3 rounded-3xl flex justify-center items-center max-w-[75%]">
                                 <span> {{chatDetails.question}}</span>
                             </div>
-                            <div *ngIf="editEnabled"
+                            <div *ngIf="chatDetails.editMode"
                                 class="bg-[#282828] px-6 py-3 rounded-3xl flex flex-col justify-center items-end max-w-[75%] gap-4">
-                                <textarea name="" id="" class="bg-[#282828] outline-none" cols="50" rows="2"
+                                <textarea name="" id="" class="bg-[#282828] outline-none" cols="50" rows="2" [(ngModel)]="chatDetails.question"
                                     style="resize:none"></textarea>
                                 <div class="flex items-center justify-center gap-4">
                                     <button class="rounded-full bg-[#121212] px-4 py-2 text-white"
-                                        (click)="disableEdit()">Cancel</button>
-                                    <button class="rounded-full bg-[#707070] px-4 py-2">Send</button>
+                                        (click)="disableEdit(chatDetails.id)">Cancel</button>
+                                    <button class="rounded-full bg-[#707070] px-4 py-2" (click)="editedQuestion(chatDetails.question,chatDetails.id)">Send</button>
                                 </div>
                             </div>
                         </div>
