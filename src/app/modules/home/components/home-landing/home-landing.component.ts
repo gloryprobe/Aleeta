@@ -295,12 +295,14 @@ Prepare a speech on how social media can enhance educational experiences. Start 
       if (res.response) {
         // this.chat.pop();
         // this.chat = [...this.chat, { answer: res.response, question: this.question }]
-        this.chat.splice(-1, 1, { answer: res.response, question: this.question })
+        this.chat.splice(-1, 1, { answer: res.response, question: payload.question })
       }
       this.question = ''
-    }, (error)=>{
+    }, (error) => {
+      this.chat.splice(-1, 1, { error: true, answer: '', question: payload.question })
+      this.scrollToBottom()
+      this.question = ''
       console.log('Something went wrong')
-      alert('Something went wrong')
     })
 
   }

@@ -57,6 +57,10 @@
                             <div *ngIf="chatDetails.answer" class="px-4 py-2 leading-7 text-base">
                                 <span>{{chatDetails.answer}}</span>
                             </div>
+                            <div *ngIf="chatDetails.error" class="border flex items-center justify-start border-[#944248] p-2 rounded-xl bg-[#4E3D47] gap-2">
+                                <button (click)="ask()"><mat-icon>sync</mat-icon></button>
+                                Something Went Wrong
+                            </div>
                         </div>
                     </div>
                 </div>
