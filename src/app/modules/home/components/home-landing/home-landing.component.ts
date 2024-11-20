@@ -90,7 +90,7 @@ export class HomeLandingComponent implements OnInit {
     // })
     if (this.question !== '') {
       this.chat.push({
-        id: '5345',
+        id: Math.floor(Math.random()*100),
         question: this.question,
         answer: 'Explanation of the Code ChangesLine Wrapping with span: Each line is wrapped in a span element with the class .line. This makes each line independently animatable.Delay for Sequential Typing: We apply an increasing delay (animation-delay) for each span. This makes each line start typing after the previous one has finished.Animation Timing: You can adjust the animation-delay or the duration in @keyframes typingg to change the speed and the delay between lines.This setup will create the effect of each line typing out one after another. Adjust the duration in the animation and animation-delay values as needed for smoother or faster effects',
       })
@@ -107,8 +107,9 @@ export class HomeLandingComponent implements OnInit {
     }
   }
   res:any=[];
-  editQuestion(id: string) {
+  editQuestion(id: string,question: string) {
     this.editEnabled = true
+    this.prevQuestion = question
     this.chat = this.chat.map((item) => {
         return {
           ...item,
@@ -116,19 +117,23 @@ export class HomeLandingComponent implements OnInit {
         }
     });
   }
-  disableEdit(id: string) {
+  disableEdit(id: string,question: string) {
     this.editEnabled = false
     this.chat = this.chat.map((item) => {
       return {
         ...item,
+        question : id === item.id ? this.prevQuestion : item.question,
         editMode : id === item.id  ? this.editEnabled : false
       }
   });
+  console.log(this.chat);
   }
+  prevQuestion: string = '';
   editedQuestion(question: string,id: string){
     console.log(question);
     this.chat = this.chat.map((item)=>{
       if (item.id === id) {
+        this.prevQuestion = question
         return {
          ...item,
           question: question,

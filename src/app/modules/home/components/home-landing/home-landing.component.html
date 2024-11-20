@@ -29,7 +29,7 @@
                             <div>
                                 <button *ngIf="!chatDetails.editMode"
                                     class="bg-[#707070] text-white rounded-full p-1 flex items-center justify-center mt-1"
-                                    (click)="editQuestion(chatDetails.id)">
+                                    (click)="editQuestion(chatDetails.id,chatDetails.question)">
                                     <mat-icon class="text-[#121212]">edit</mat-icon>
                                 </button>
                             </div>
@@ -39,12 +39,13 @@
                             </div>
                             <div *ngIf="chatDetails.editMode"
                                 class="bg-[#282828] px-6 py-3 rounded-3xl flex flex-col justify-center items-end max-w-[75%] gap-4">
-                                <textarea name="" id="" class="bg-[#282828] outline-none" cols="50" rows="2" [(ngModel)]="chatDetails.question"
-                                    style="resize:none"></textarea>
+                                <textarea name="" id="" class="bg-[#282828] outline-none" cols="50" rows="2"
+                                    [(ngModel)]="chatDetails.question" style="resize:none"></textarea>
                                 <div class="flex items-center justify-center gap-4">
                                     <button class="rounded-full bg-[#121212] px-4 py-2 text-white"
-                                        (click)="disableEdit(chatDetails.id)">Cancel</button>
-                                    <button class="rounded-full bg-[#707070] px-4 py-2" (click)="editedQuestion(chatDetails.question,chatDetails.id)">Send</button>
+                                        (click)="disableEdit(chatDetails.id,chatDetails.question)">Cancel</button>
+                                    <button class="rounded-full bg-[#707070] px-4 py-2"
+                                        (click)="editedQuestion(chatDetails.question,chatDetails.id)">Send</button>
                                 </div>
                             </div>
                         </div>
@@ -82,13 +83,12 @@
 
         <div class="h-[12vh] flex items-center justify-center 00">
             <div class=" rounded-full  bg-[#3f3f3f] w-1/2 flex justify-between items-center p-2">
-                <input type="text" placeholder="Type your message here..." id="myInput" (keydown)="onEnterPress($event)"
+                <input type="text" placeholder="Type your message here..." id="myInput" (keydown)="onEnterPress($event)" autocomplete="off"
                     class="outline-none h-1/2 w-full px-4 bg-[#3f3f3f]" [(ngModel)]="question" />
-                <div class="bg-[#f9f9f9] text-white rounded-full  flex items-center justify-center p-3">
-                    <button (click)="ask()">
-                        <mat-icon class="text-[#121212]">send</mat-icon>
-                    </button>
-                </div>
+                <button (click)="ask()" [disabled]="!question"
+                    class="bg-[#f9f9f9] text-white rounded-full  flex items-center justify-center p-3">
+                    <mat-icon class="text-[#121212]">send</mat-icon>
+                </button>
             </div>
         </div>
     </div>
