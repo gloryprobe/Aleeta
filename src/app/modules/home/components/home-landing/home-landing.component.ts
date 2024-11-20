@@ -13,6 +13,7 @@ export class HomeLandingComponent implements OnInit {
   answer: string = '';
   editEnabled: boolean = false;
   disableButton: boolean = false;
+  failedQuestion: string = '';
   histories = [
     'Real Time Chat App',
     'Normal vs Arrow Functions',
@@ -277,35 +278,39 @@ Prepare a speech on how social media can enhance educational experiences. Start 
   ask() {
     console.log(this.question);
     const payload = {
-      question: this.question
+      question: this.question ? this.question : this.failedQuestion
     }
-    if (this.question !== '') {
-      this.chat.push({
-        id: Math.ceil(Math.random()*10000),
-        question: this.question,
-        answer: 'Loading...'
-      })
+
+    if (this.chat[this.chat.length - 1]?.error) {
+      this.chat.splice(-1, 1, { error: false, answer: 'Loading...', question: payload.question })
       this.scrollToBottom()
     }
-    else {
-      return
-    }
+    else if (this.question !== '') {
+      this.chat.push({
+        id: Math.ceil(Math.random() * 10000),
+        question: this.question,
+        answer: 'Loading...',
+        error: false
+      })
+      this.scrollToBottom()
+    } else return;
+
     this.apiService.askQuestion(payload).subscribe((res) => {
       console.log(res);
       if (res.response) {
-        // this.chat.pop();
-        // this.chat = [...this.chat, { answer: res.response, question: this.question }]
-        this.chat.splice(-1, 1, { answer: res.response, question: payload.question })
+        this.chat.splice(-1, 1, { error: false, answer: res.response, question: payload.question })
+        this.failedQuestion = '';
+        this.question = ''
+        this.scrollToBottom();
       }
-      this.question = ''
     }, (error) => {
       this.chat.splice(-1, 1, { error: true, answer: '', question: payload.question })
-      this.scrollToBottom()
+      this.failedQuestion = payload.question;
       this.question = ''
-      console.log('Something went wrong')
+      this.scrollToBottom()
     })
-
   }
+
   onEnterPress(e: KeyboardEvent) {
     if (e.key === 'Enter') {
       this.ask()
