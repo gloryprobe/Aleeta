@@ -58,7 +58,9 @@
                                 <span>{{chatDetails.answer}}</span>
                             </div>
                             <div *ngIf="chatDetails.error" class="border flex items-center justify-start border-[#944248] p-2 rounded-xl bg-[#4E3D47] gap-2">
-                                <button (click)="ask()"><mat-icon>sync</mat-icon></button>
+                                <button (click)="ask()">
+                                    <!-- <mat-icon>sync</mat-icon> -->
+                                </button>
                                 Something Went Wrong
                             </div>
                         </div>
@@ -86,7 +88,7 @@
 
         <div class="h-[12vh] flex items-center justify-center 00">
             <div class=" rounded-full  bg-[#3f3f3f] w-1/2 flex justify-between items-center p-2">
-                <input type="text" placeholder="Type your message here..." id="myInput" (keydown)="onEnterPress($event)"
+                <input type="text" placeholder="Type your message here..." id="myInput" (keydown)="onEnterPress($event)" autocomplete="off"
                     class="outline-none h-1/2 w-full px-4 bg-[#3f3f3f]" [(ngModel)]="question" />
                 <button (click)="ask()" [disabled]="!question"
                     class="bg-[#f9f9f9] text-white rounded-full  flex items-center justify-center p-3">

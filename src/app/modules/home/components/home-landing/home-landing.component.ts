@@ -240,36 +240,36 @@ Prepare a speech on how social media can enhance educational experiences. Start 
   `
 
   chat: any[] = [
-    {
-      id: '5635',
-      question: 'Are you sure you want to leave this room?',
-      answer: 'Leave this room'
-    },
-    {
-      id: '5636',
-      question: 'What are your thoughts on this topic?',
-      answer: 'This topic is interesting'
-    },
-    {
-      id: '5637',
-      question: this.data,
-      answer: this.data
-    },
-    {
-      id: '5638',
-      question: 'Thank you for your feedback!',
-      answer: 'Thank you'
-    },
-    {
-      id: '5639',
-      question: 'What do you think about the topic?',
-      answer: 'This topic is not interesting'
-    },
-    {
-      id: '5640',
-      question: 'Explanation of the Code ChangesLine Wrapping with span: Each line is wrapped in a span element with the class .line. This makes each line independently animatable.Delay for Sequential Typing: We apply an increasing delay (animation-delay) for each span. This makes each line start typing after the previous one has finished.Animation Timing: You can adjust the animation-delay or the duration in @keyframes typingg to change the speed and the delay between lines.This setup will create the effect of each line typing out one after another. Adjust the duration in the animation and animation-delay values as needed for smoother or faster effects',
-      answer: 'Yes'
-    }
+    // {
+    //   id: '5635',
+    //   question: 'Are you sure you want to leave this room?',
+    //   answer: 'Leave this room'
+    // },
+    // {
+    //   id: '5636',
+    //   question: 'What are your thoughts on this topic?',
+    //   answer: 'This topic is interesting'
+    // },
+    // {
+    //   id: '5637',
+    //   question: this.data,
+    //   answer: this.data
+    // },
+    // {
+    //   id: '5638',
+    //   question: 'Thank you for your feedback!',
+    //   answer: 'Thank you'
+    // },
+    // {
+    //   id: '5639',
+    //   question: 'What do you think about the topic?',
+    //   answer: 'This topic is not interesting'
+    // },
+    // {
+    //   id: '5640',
+    //   question: 'Explanation of the Code ChangesLine Wrapping with span: Each line is wrapped in a span element with the class .line. This makes each line independently animatable.Delay for Sequential Typing: We apply an increasing delay (animation-delay) for each span. This makes each line start typing after the previous one has finished.Animation Timing: You can adjust the animation-delay or the duration in @keyframes typingg to change the speed and the delay between lines.This setup will create the effect of each line typing out one after another. Adjust the duration in the animation and animation-delay values as needed for smoother or faster effects',
+    //   answer: 'Yes'
+    // }
   ]
   ngOnInit(): void {
     this.scrollToBottom()
@@ -281,7 +281,7 @@ Prepare a speech on how social media can enhance educational experiences. Start 
     }
     if (this.question !== '') {
       this.chat.push({
-        id: '5345',
+        id: Math.ceil(Math.random()*10000),
         question: this.question,
         answer: 'Loading...'
       })
