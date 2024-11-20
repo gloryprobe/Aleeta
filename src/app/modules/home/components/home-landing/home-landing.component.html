@@ -13,9 +13,10 @@
             <div class="flex justify-between p-4 h-[10%]">
                 <h1 class="text-lg font-medium aleeta">Aleeta</h1>
                 <div class="flex gap-4">
-                    <button (click)="getLogs()"
+                    <button (click)="getLogs()" [disabled]="downloadSpinner"
                         class="bg-[#707070] text-[#121212] font-medium p-2 flex items-center justify-center rounded-lg gap-4">
-                        <mat-icon>save_alt</mat-icon>
+                        <mat-icon *ngIf="!downloadSpinner">save_alt</mat-icon>
+                        <mat-spinner diameter="20" class="spinner" color="accent" *ngIf="downloadSpinner"/>
                         Download Logs</button>
                     <div class="bg-[#707070] text-white rounded-full p-3 flex items-center justify-center">
                         <mat-icon class="text-[#121212]">person</mat-icon>

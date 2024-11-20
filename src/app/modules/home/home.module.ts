@@ -6,6 +6,8 @@ import { HomeLandingComponent } from './components/home-landing/home-landing.com
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TestComponent } from './components/test/test.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 
 @NgModule({
@@ -18,7 +20,8 @@ import { TestComponent } from './components/test/test.component';
     HomeRoutingModule,
     MatIconModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatProgressSpinnerModule
   ]
 })
 export class HomeModule { }

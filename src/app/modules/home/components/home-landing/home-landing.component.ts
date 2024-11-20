@@ -14,6 +14,7 @@ export class HomeLandingComponent implements OnInit {
   editEnabled: boolean = false;
   disableButton: boolean = false;
   failedQuestion: string = '';
+  downloadSpinner: boolean = false;
   histories = [
     'Real Time Chat App',
     'Normal vs Arrow Functions',
@@ -323,13 +324,14 @@ Prepare a speech on how social media can enhance educational experiences. Start 
     this.editEnabled = false
   }
   getLogs() {
+    this.downloadSpinner = true;
     this.apiService.downloadCSV().subscribe((res) => {
       const blob = new Blob([res], { type: 'text/csv' })
       this.dowloadFile(blob)
     },
       (error) => {
         console.log('Something went wrong')
-        alert('Something went wrong')
+        this.downloadSpinner = false
       })
   }
 
@@ -342,6 +344,7 @@ Prepare a speech on how social media can enhance educational experiences. Start 
     document.body.appendChild(a);
     a.click();
     window.URL.revokeObjectURL(url);
+    this.downloadSpinner = false;
   }
   scrollToBottom() {
     const el: HTMLDivElement = this.scrollContainer.nativeElement;
