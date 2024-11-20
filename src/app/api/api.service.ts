@@ -12,7 +12,7 @@ export class ApiService {
 
 
   askQuestion(question: any){
-    let url = this.URL+'as'
+    let url = this.URL+'ask'
     return this.http.post<any>(url,question);
   }
   downloadCSV(){
