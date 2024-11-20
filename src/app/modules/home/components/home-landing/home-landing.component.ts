@@ -34,14 +34,12 @@ export class HomeLandingComponent implements OnInit {
     'Angular Material Snackbar',
   ]
   questions = [
-    'What is the difference between a class and an interface in Angular?',
-    'How does Angular Universal work?',
-    'What is the purpose of Angular Material?',
-    'What is the difference between Angular Forms and Reactive Forms?',
-    'How do you handle error in Angular?',
-    'What is the purpose of Angular Animations?',
-    'What is the purpose of Angular CDK Drag and Drop?',
-    'What is the purpose of Angular Material Table?',
+    'What is biosensors',
+    'What is relay bridge',
+    'What is SPR',
+    'Why is MPR',
+    'What is greenlight indicate',
+    'What is lifecycles',
   ]
   data = `
   What do you Mean by Social Media?
@@ -276,20 +274,22 @@ Prepare a speech on how social media can enhance educational experiences. Start 
   ngOnInit(): void {
     this.scrollToBottom()
   }
-  ask() {
+  ask(question?: string) {
     console.log(this.question);
+    console.log(question);
+    
     const payload = {
-      question: this.question ? this.question : this.failedQuestion
+      question: question ? question : (this.question ? this.question : this.failedQuestion)
     }
 
     if (this.chat[this.chat.length - 1]?.error) {
       this.chat.splice(-1, 1, { error: false, answer: 'Loading...', question: payload.question })
       this.scrollToBottom()
     }
-    else if (this.question !== '') {
+    else if (this.question !== '' || question) {
       this.chat.push({
         id: Math.ceil(Math.random() * 10000),
-        question: this.question,
+        question: payload.question,
         answer: 'Loading...',
         error: false
       })

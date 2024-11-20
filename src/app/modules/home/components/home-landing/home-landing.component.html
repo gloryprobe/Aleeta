@@ -76,10 +76,10 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-3 justify-items-center gap-y-4 place-items-center">
-                        <div class="rounded-3xl  p-4 bg-[#282828] text-sm text-center w-10/12 h-full flex items-center"
-                            *ngFor="let question of questions">
-                            <p>{{question}}</p>
+                    <div class="grid grid-cols-3 justify-items-center gap-4 place-items-center cursor-pointer">
+                        <div class="rounded-3xl  p-4 bg-[#282828] text-sm text-center w-[215px] h-[50px] flex items-center justify-center"
+                            *ngFor="let question of questions" (click)="ask(question)">
+                            <span (click)="ask(question)" class="cursor-pointer">{{question}}</span>
                         </div>
                     </div>
                 </div>
