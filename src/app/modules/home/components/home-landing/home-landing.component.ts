@@ -37,9 +37,9 @@ export class HomeLandingComponent implements OnInit {
     'What is biosensors',
     'What is relay bridge',
     'What is SPR',
-    'Why is MPR',
+    'What is MPR',
     'What is greenlight indicate',
-    'What is lifecycles',
+    'What is arrhythmia',
   ]
   data = `
   What do you Mean by Social Media?
